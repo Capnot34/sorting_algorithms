@@ -1,4 +1,3 @@
-// 103-merge_sort.c
 #include "sort.h"
 
 void merge(int *array, int *temp, int left, int mid, int right)
