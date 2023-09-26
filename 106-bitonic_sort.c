@@ -8,9 +8,10 @@
  */
 void swap(int *array, size_t i, size_t j)
 {
-    int temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
+	int temp = array[i];
+
+	array[i] = array[j];
+	array[j] = temp;
 }
 
 /**
@@ -22,19 +23,17 @@ void swap(int *array, size_t i, size_t j)
  */
 void bitonic_compare(int *array, size_t low, size_t count, int dir)
 {
-    size_t i, j, k;
-    for (k = count / 2; k > 0; k /= 2)
-    {
-        for (i = low; i < low + count - k; i++)
-        {
-            j = i + k;
-            if ((array[i] > array[j]) == dir)
-            {
-                swap(array, i, j);
-                print_array(array, count);
-            }
-        }
-    }
+	size_t i, j, k = count / 2;
+
+	for (i = low; i < low + k; i++)
+	{
+		j = i + k;
+		if (dir == (array[i] > array[j]))
+		{
+			swap(array, i, j);
+			print_array(array, count);
+		}
+	}
 }
 
 /**
@@ -46,13 +45,12 @@ void bitonic_compare(int *array, size_t low, size_t count, int dir)
  */
 void bitonic_merge(int *array, size_t low, size_t count, int dir)
 {
-    if (count > 1)
-    {
-        size_t k = count / 2;
-        bitonic_compare(array, low, count, dir);
-        bitonic_merge(array, low, k, dir);
-        bitonic_merge(array, low + k, k, dir);
-    }
+	if (count <= 1)
+		return;
+
+	bitonic_compare(array, low, count, dir);
+	bitonic_merge(array, low, count / 2, dir);
+	bitonic_merge(array, low + count / 2, count / 2, dir);
 }
 
 /**
@@ -64,13 +62,14 @@ void bitonic_merge(int *array, size_t low, size_t count, int dir)
  */
 void bitonic_sort_recursive(int *array, size_t low, size_t count, int dir)
 {
-    if (count > 1)
-    {
-        size_t k = count / 2;
-        bitonic_sort_recursive(array, low, k, 1);
-        bitonic_sort_recursive(array, low + k, k, 0);
-        bitonic_merge(array, low, count, dir);
-    }
+	if (count <= 1)
+		return;
+
+	size_t k = count / 2;
+
+	bitonic_sort_recursive(array, low, k, 1);
+	bitonic_sort_recursive(array, low + k, k, 0);
+	bitonic_merge(array, low, count, dir);
 }
 
 /**
@@ -80,8 +79,8 @@ void bitonic_sort_recursive(int *array, size_t low, size_t count, int dir)
  */
 void bitonic_sort(int *array, size_t size)
 {
-    if (!array || size < 2)
-        return;
+	if (!array || size < 2)
+		return;
 
-    bitonic_sort_recursive(array, 0, size, 1);
+	bitonic_sort_recursive(array, 0, size, 1);
 }
