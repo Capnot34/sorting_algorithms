@@ -28,7 +28,7 @@ void bubble_sort(int *array, size_t size)
 				swapped = 1;
 
 				/* Print the array after each swap */
-				print_array(array, size)
+				print_array(array, size);
 			}
 		}
 		/* If no two elements were swapped, the array is sorted */
