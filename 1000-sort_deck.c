@@ -50,31 +50,30 @@ void sort_deck(deck_node_t **deck)
 	deck_node_t **array, *current;
 	size_t i, count = 0;
 
-	for (current = *deck; current; current = current->next
-			count++;
+	for (current = *deck; current; current = current->next)
+		count++;
 
-			array = malloc(sizeof(deck_node_t *) * count);
-			if (!array)
-			return;
+	array = malloc(sizeof(deck_node_t *) * count);
+	if (!array)
+		return;
 
-			for (i = 0, current = *deck; i < count; i++, current = current->next)
-			array[i] = current;
+	for (i = 0, current = *deck; i < count; i++, current = current->next)
+		array[i] = current;
 
-			qsort(array, count, sizeof(deck_node_t *), compare_cards);
+	qsort(array, count, sizeof(deck_node_t *), compare_cards);
 
-			for (i = 0; i < count - 1; i++)
-			{
+	for (i = 0; i < count - 1; i++)
+	{
+		array[i]->next = array[i + 1];
 
-			array[i]->next = array[i + 1];
+		array[i + 1]->prev = array[i];
+	}
 
-			array[i + 1]->prev = array[i];
-			}
+	array[0]->prev = NULL;
 
-			array[0]->prev = NULL;
+	array[count - 1]->next = NULL;
 
-			array[count - 1]->next = NULL;
+	*deck = array[0];
 
-			*deck = array[0];
-
-			free(array);
+	free(array);
 }
