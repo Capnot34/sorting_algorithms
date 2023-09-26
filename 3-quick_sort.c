@@ -2,6 +2,7 @@
 
 void quicksort(int *array, ssize_t lo, ssize_t hi, size_t size);
 ssize_t partition(int *array, ssize_t lo, ssize_t hi, size_t size);
+int is_sorted(int *array, size_t size);
 
 /**
  * quick_sort - sorts an array of integers in ascending order
@@ -10,10 +11,28 @@ ssize_t partition(int *array, ssize_t lo, ssize_t hi, size_t size);
  */
 void quick_sort(int *array, size_t size)
 {
-	if (!array || size < 2)
+	if (!array || size < 2 || is_sorted(array, size))
 		return;
 
 	quicksort(array, 0, size - 1, size);
+}
+/**
+ * is_sorted - Checks if the given array is sorted in ascending order
+ * @array: Pointer to the first element of the array to check
+ * @size: The number of elements in the array
+ *
+ * Return: 1 if the array is sorted, 0 otherwise
+ */
+int is_sorted(int *array, size_t size)
+{
+	size_t i;
+
+	for (i = 1; i < size; i++)
+	{
+		if (array[i - 1] > array[i])
+			return (0);
+	}
+	return (1);
 }
 
 /**
