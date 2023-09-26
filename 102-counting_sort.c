@@ -1,45 +1,50 @@
 #include "sort.h"
 
+/**
+ * counting_sort - sorts an array of integers.
+ * @array: The array to be sorted.
+ * @size: Number of elements in the array.
+ */
 void counting_sort(int *array, size_t size)
 {
-    int k = 0, *count, *output, i;
+	int k = 0, *count, *output, i;
 
-    if (!array || size < 2)
-        return;
+	if (!array || size < 2)
+		return;
 
-    for (i = 0; i < (int)size; i++)
-        if (array[i] > k)
-            k = array[i];
+	for (i = 0; i < (int)size; i++)
+		if (array[i] > k)
+			k = array[i];
 
-    count = malloc(sizeof(int) * (k + 1));
-    output = malloc(sizeof(int) * size);
-    if (!count || !output)
-    {
-        free(count);
-        free(output);
-        return;
-    }
+	count = malloc(sizeof(int) * (k + 1));
+	output = malloc(sizeof(int) * size);
+	if (!count || !output)
+	{
+		free(count);
+		free(output);
+		return;
+	}
 
-    for (i = 0; i <= k; i++)
-        count[i] = 0;
+	for (i = 0; i <= k; i++)
+		count[i] = 0;
 
-    for (i = 0; i < (int)size; i++)
-        count[array[i]] += 1;
+	for (i = 0; i < (int)size; i++)
+		count[array[i]] += 1;
 
-    for (i = 1; i <= k; i++)
-        count[i] += count[i - 1];
+	for (i = 1; i <= k; i++)
+		count[i] += count[i - 1];
 
-    print_array(count, k + 1);
+	print_array(count, k + 1);
 
-    for (i = 0; i < (int)size; i++)
-    {
-        output[count[array[i]] - 1] = array[i];
-        count[array[i]] -= 1;
-    }
+	for (i = 0; i < (int)size; i++)
+	{
+		output[count[array[i]] - 1] = array[i];
+		count[array[i]] -= 1;
+	}
 
-    for (i = 0; i < (int)size; i++)
-        array[i] = output[i];
+	for (i = 0; i < (int)size; i++)
+		array[i] = output[i];
 
-    free(count);
-    free(output);
+	free(count);
+	free(output);
 }
