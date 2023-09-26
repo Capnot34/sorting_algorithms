@@ -3,6 +3,16 @@
 
 #include <stddef.h>
 
+/**
+ * enum kind_e - Enumeration of card kinds.
+ *
+ * @SPADE: Represents the Spade kind.
+ * @HEART: Represents the Heart kind.
+ * @CLUB: Represents the Club kind.
+ * @DIAMOND: Represents the Diamond kind.
+ *
+ * Description: This enumeration represents the four possible kinds of a card.
+ */
 typedef enum kind_e {
     SPADE = 0,
     HEART,
