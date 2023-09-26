@@ -54,12 +54,13 @@ void split_merge(int *array, int *temp, int left, int right)
 		mid = (left + right) / 2;
 		split_merge(array, temp, left, mid);
 		split_merge(array, temp, mid + 1, right);
-		printf("Merging...\n");
+
 		printf("[left]: ");
 		print_array(array + left, mid - left + 1);
 		printf("[right]: ");
 		print_array(array + mid + 1, right - mid);
 		merge(array, temp, left, mid, right);
+		printf("Merging...\n");
 		printf("[Done]: ");
 		print_array(array + left, right - left + 1);
 	}
